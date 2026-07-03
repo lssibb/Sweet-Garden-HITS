@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
-import { CheckCircle2, Heart, Leaf, Sprout } from "lucide-react";
+import { CheckCircle2, Heart, Leaf, Sparkles, Sprout } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { CareTaskRow } from "@/components/CareTaskRow";
 import { EmptyState } from "@/components/EmptyState";
+import { RecommendationCard } from "@/components/RecommendationCard";
 import { useCareTasks } from "@/hooks/useCareTasks";
 import { useCountUp } from "@/hooks/useCountUp";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePlants } from "@/hooks/usePlants";
 import { useUserPlants } from "@/hooks/useUserPlants";
 import { activeTasks } from "@/lib/reminders";
+import { recommendPlants } from "@/lib/recommend";
 
 function greeting(): string {
   const h = new Date().getHours();
@@ -28,6 +30,7 @@ export function Dashboard() {
   const plantById = new Map(plants.map((p) => [p.id, p]));
   const active = activeTasks(tasks);
   const scheduled = tasks.length - active.length;
+  const recommendations = recommendPlants(plants, userPlants, favorites, 4);
   const activeCount = useCountUp(active.length);
 
   return (
@@ -134,6 +137,27 @@ export function Dashboard() {
           label="в справочнике"
         />
       </section>
+
+      {/* Recommendations — suggested from collection, favourites, or as starters */}
+      {recommendations.length > 0 && (
+        <section className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Sparkles className="size-5 text-orchid" />
+            <h2 className="font-display text-xl font-bold">
+              Вам может понравиться
+            </h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {recommendations.map((rec) => (
+              <RecommendationCard
+                key={rec.plant.id}
+                plant={rec.plant}
+                reason={rec.reason}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
