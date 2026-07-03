@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { CareTaskRow } from "@/components/CareTaskRow";
 import { EmptyState } from "@/components/EmptyState";
 import { useCareTasks } from "@/hooks/useCareTasks";
+import { useCountUp } from "@/hooks/useCountUp";
 import { useFavorites } from "@/hooks/useFavorites";
 import { usePlants } from "@/hooks/usePlants";
 import { useUserPlants } from "@/hooks/useUserPlants";
@@ -27,11 +28,20 @@ export function Dashboard() {
   const plantById = new Map(plants.map((p) => [p.id, p]));
   const active = activeTasks(tasks);
   const scheduled = tasks.length - active.length;
+  const activeCount = useCountUp(active.length);
 
   return (
     <div className="space-y-8">
       {/* Hero — the state of your living things, not a marketing headline */}
-      <header className="animate-rise">
+      <header className="relative isolate animate-rise">
+        <div
+          aria-hidden
+          className="animate-glow pointer-events-none absolute -left-16 -top-24 -z-10 h-64 w-80 rounded-full opacity-40 blur-3xl"
+          style={{
+            background:
+              "radial-gradient(circle, var(--orchid) 0%, transparent 70%)",
+          }}
+        />
         <p className="specimen text-sm text-muted-foreground">{greeting()},</p>
         <h1 className="mt-1 font-display text-3xl font-bold tracking-tight sm:text-4xl">
           {userPlants.length === 0 ? (
@@ -39,7 +49,7 @@ export function Dashboard() {
           ) : active.length > 0 ? (
             <>
               Сегодня в оранжерее{" "}
-              <span className="text-orchid">{active.length}</span>{" "}
+              <span className="text-orchid tabular-nums">{activeCount}</span>{" "}
               {active.length === 1 ? "задача" : "дела"}
             </>
           ) : (
