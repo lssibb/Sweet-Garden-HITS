@@ -18,7 +18,7 @@ interface ThemeContextValue {
   toggle: () => void;
 }
 
-const STORAGE_KEY = "orangerie:theme";
+const STORAGE_KEY = "sweetgarden:theme";
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 function systemTheme(): Resolved {
