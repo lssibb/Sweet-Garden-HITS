@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	domain "github.com/KyoshiBlame/HK2026/internal/core/domain/user"
+	domain "github.com/lssibb/Sweet-Garden-HITS/internal/core/domain/user"
+	"github.com/lssibb/Sweet-Garden-HITS/internal/utils"
 )
 
 func (s *UsersService) CreateUser(
@@ -15,7 +16,13 @@ func (s *UsersService) CreateUser(
 		return domain.User{}, fmt.Errorf("Validate user domain: %w", err)
 	}
 
-	user, err := s.usersRepository.CreateUser(ctx, user)
+	hashedPassword, err := utils.HashPassword(user.PasswordHash)
+	if err != nil {
+		return domain.User{}, fmt.Errorf("failed to hash password: %w", err)
+	}
+	user.PasswordHash = hashedPassword
+
+	user, err = s.usersRepository.CreateUser(ctx, user)
 	if err != nil {
 		return domain.User{}, fmt.Errorf("invalid create user: %w", err)
 	}
