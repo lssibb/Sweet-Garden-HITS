@@ -8,6 +8,7 @@ import {
   Sun,
 } from "lucide-react";
 
+import { Footer } from "@/components/Footer";
 import { NotificationBell } from "@/components/NotificationBell";
 import { Button } from "@/components/ui/button";
 import { useCareTasks, useReminderScheduler } from "@/hooks/useCareTasks";
@@ -29,7 +30,7 @@ function Brand() {
         <Leaf className="size-5" />
       </span>
       <span className="font-display text-xl font-bold tracking-tight">
-        Оранжерея
+        Sweet Garden
       </span>
     </NavLink>
   );
@@ -140,9 +141,12 @@ export function Layout() {
       </header>
 
       {/* Main content */}
-      <main className="flex-1 pb-24 md:pb-0">
-        <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-10">
-          <Outlet />
+      <main className="flex flex-1 flex-col pb-24 md:pb-0">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 py-6 md:px-8 md:py-10">
+          <div className="flex-1">
+            <Outlet />
+          </div>
+          <Footer />
         </div>
       </main>
 
