@@ -1,7 +1,11 @@
 import type { DataSource } from "../datasource";
 import type {
   AddUserPlantInput,
+  CreateListingInput,
+  ExchangeListing,
+  ExchangeMessage,
   Plant,
+  UpdateListingInput,
   UpdateUserPlantInput,
   UserPlant,
 } from "../types";
@@ -67,5 +71,44 @@ export class HttpDataSource implements DataSource {
 
   markRepotted(userPlantId: string, at?: string): Promise<UserPlant> {
     return http.post<UserPlant>(`/user-plants/${userPlantId}/repot`, { at });
+  }
+
+  listExchangeListings(): Promise<ExchangeListing[]> {
+    return http.get<ExchangeListing[]>("/exchange/listings");
+  }
+
+  async getExchangeListing(id: string): Promise<ExchangeListing | undefined> {
+    return http.get<ExchangeListing>(`/exchange/listings/${id}`);
+  }
+
+  createExchangeListing(input: CreateListingInput): Promise<ExchangeListing> {
+    return http.post<ExchangeListing>("/exchange/listings", input);
+  }
+
+  updateExchangeListing(
+    id: string,
+    patch: UpdateListingInput
+  ): Promise<ExchangeListing> {
+    return http.patch<ExchangeListing>(`/exchange/listings/${id}`, patch);
+  }
+
+  async removeExchangeListing(id: string): Promise<void> {
+    await http.del(`/exchange/listings/${id}`);
+  }
+
+  listExchangeMessages(listingId: string): Promise<ExchangeMessage[]> {
+    return http.get<ExchangeMessage[]>(
+      `/exchange/listings/${listingId}/messages`
+    );
+  }
+
+  sendExchangeMessage(
+    listingId: string,
+    text: string
+  ): Promise<ExchangeMessage> {
+    return http.post<ExchangeMessage>(
+      `/exchange/listings/${listingId}/messages`,
+      { text }
+    );
   }
 }

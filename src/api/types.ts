@@ -111,3 +111,56 @@ export interface AddUserPlantInput {
 export type UpdateUserPlantInput = Partial<
   Omit<UserPlant, "id" | "plantId" | "dateAdded">
 >;
+
+// ── Plant exchange (обмен растениями) ──────────────────────────────────────
+
+/** Id of the local "me" identity — there are no accounts in the base version. */
+export const ME_ID = "me";
+
+export type ExchangeStatus = "active" | "reserved" | "closed";
+
+/** A plant offered for exchange on the community board. */
+export interface ExchangeListing {
+  id: string;
+  /** Link to the catalogue species being offered. */
+  plantId: string;
+  /** ME_ID for the current user, or a seeded user id. */
+  ownerId: string;
+  ownerName: string;
+  /** Condition / size / age, e.g. "Молодое, 3 листа, укоренённый черенок". */
+  condition: string;
+  description?: string;
+  /** Preferences — what the owner wants in return (free text). */
+  wants: string;
+  city?: string;
+  status: ExchangeStatus;
+  createdAt: string;
+}
+
+/** A chat message under an exchange listing. */
+export interface ExchangeMessage {
+  id: string;
+  listingId: string;
+  authorId: string;
+  authorName: string;
+  text: string;
+  createdAt: string;
+}
+
+/** Payload for creating an exchange listing (owner is the current user). */
+export interface CreateListingInput {
+  plantId: string;
+  condition: string;
+  description?: string;
+  wants: string;
+  city?: string;
+}
+
+/** Partial update for a listing — used to change its status. */
+export interface UpdateListingInput {
+  status?: ExchangeStatus;
+  condition?: string;
+  description?: string;
+  wants?: string;
+  city?: string;
+}

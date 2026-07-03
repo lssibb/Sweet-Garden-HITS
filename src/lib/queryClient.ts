@@ -17,4 +17,7 @@ export const qk = {
   favorites: ["favorites"] as const,
   userPlants: ["user-plants"] as const,
   userPlant: (id: string) => ["user-plants", id] as const,
+  exchangeListings: ["exchange-listings"] as const,
+  exchangeListing: (id: string) => ["exchange-listings", id] as const,
+  exchangeMessages: (id: string) => ["exchange-messages", id] as const,
 };

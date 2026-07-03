@@ -44,6 +44,25 @@ VITE_API_URL=http://localhost:8080
 | POST   | `/api/user-plants/{id}/water` | `{ at? }`       | `UserPlant`   |
 | POST   | `/api/user-plants/{id}/repot` | `{ at? }`       | `UserPlant`   |
 
+### Обмен растениями (усложнение)
+
+| Метод  | Путь                                    | Тело                 | Ответ                |
+| ------ | --------------------------------------- | -------------------- | -------------------- |
+| GET    | `/api/exchange/listings`                | —                    | `ExchangeListing[]`  |
+| POST   | `/api/exchange/listings`                | `CreateListingInput` | `ExchangeListing` (201) |
+| GET    | `/api/exchange/listings/{id}`           | —                    | `ExchangeListing`    |
+| PATCH  | `/api/exchange/listings/{id}`           | `UpdateListingInput` | `ExchangeListing`    |
+| DELETE | `/api/exchange/listings/{id}`           | —                    | `204`                |
+| GET    | `/api/exchange/listings/{id}/messages`  | —                    | `ExchangeMessage[]`  |
+| POST   | `/api/exchange/listings/{id}/messages`  | `{ text }`           | `ExchangeMessage` (201) |
+
+- `ownerId`/`authorId` = `"me"` для текущего пользователя (в базе аккаунтов нет —
+  привяжите к сессии/анонимному id, как и остальные пользовательские данные).
+- Демо-объявления для локальной версии — [src/api/seed/exchange.seed.json](../src/api/seed/exchange.seed.json);
+  на бэке они не нужны, доска наполняется реальными объявлениями.
+- Чат в базовой версии — обычный REST (polling). Для живого чата позже можно
+  добавить WebSocket/SSE, фронтовый контракт (`ChatPanel`) при этом не меняется.
+
 Ошибки — JSON `{ "error": "текст" }` с соответствующим кодом (фронт читает поле
 `error`, см. [src/api/http/client.ts](../src/api/http/client.ts)).
 

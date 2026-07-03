@@ -8,7 +8,16 @@ export const KEYS = {
   favorites: `${PREFIX}favorites`,
   userPlants: `${PREFIX}user-plants`,
   notifiedTasks: `${PREFIX}notified-tasks`,
+  exchangeListings: `${PREFIX}exchange-listings`,
+  exchangeMessages: `${PREFIX}exchange-messages`,
+  exchangeSeeded: `${PREFIX}exchange-seeded`,
+  profileName: `${PREFIX}profile-name`,
 } as const;
+
+/** The current user's display name for exchange listings and chat. */
+export function myName(): string {
+  return read<string>(KEYS.profileName, "Вы");
+}
 
 /**
  * One-time rename of persisted keys after the "Оранжерея" → "Sweet Garden"

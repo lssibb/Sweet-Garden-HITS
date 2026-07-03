@@ -1,6 +1,10 @@
 import type {
   AddUserPlantInput,
+  CreateListingInput,
+  ExchangeListing,
+  ExchangeMessage,
   Plant,
+  UpdateListingInput,
   UpdateUserPlantInput,
   UserPlant,
 } from "./types";
@@ -43,6 +47,20 @@ export interface DataSource {
   // Care actions — stamp the last watered/repotted time (drives reminders)
   markWatered(userPlantId: string, at?: string): Promise<UserPlant>;
   markRepotted(userPlantId: string, at?: string): Promise<UserPlant>;
+
+  // Exchange board (обмен растениями)
+  listExchangeListings(): Promise<ExchangeListing[]>;
+  getExchangeListing(id: string): Promise<ExchangeListing | undefined>;
+  createExchangeListing(input: CreateListingInput): Promise<ExchangeListing>;
+  updateExchangeListing(
+    id: string,
+    patch: UpdateListingInput
+  ): Promise<ExchangeListing>;
+  removeExchangeListing(id: string): Promise<void>;
+
+  // Exchange chat — negotiate terms under a listing
+  listExchangeMessages(listingId: string): Promise<ExchangeMessage[]>;
+  sendExchangeMessage(listingId: string, text: string): Promise<ExchangeMessage>;
 }
 
 let singleton: DataSource | null = null;

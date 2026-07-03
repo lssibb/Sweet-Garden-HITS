@@ -1,7 +1,12 @@
 import { format, formatDistanceToNowStrict, parseISO } from "date-fns";
 import { ru } from "date-fns/locale";
 
-import type { CareStatus, CareType, Light } from "@/api/types";
+import type {
+  CareStatus,
+  CareType,
+  ExchangeStatus,
+  Light,
+} from "@/api/types";
 
 export const LIGHT_LABEL: Record<Light, string> = {
   low: "Тень",
@@ -51,6 +56,25 @@ export function moistureTone(progress: number | undefined): string {
   if (progress >= 0.75) return "text-warn";
   return "text-living";
 }
+
+const EXCHANGE_STATUS: Record<ExchangeStatus, string> = {
+  active: "Доступно",
+  reserved: "Забронировано",
+  closed: "Закрыто",
+};
+
+export function exchangeStatusLabel(status: ExchangeStatus): string {
+  return EXCHANGE_STATUS[status];
+}
+
+export const EXCHANGE_STATUS_VARIANT: Record<
+  ExchangeStatus,
+  "living" | "warn" | "secondary"
+> = {
+  active: "living",
+  reserved: "warn",
+  closed: "secondary",
+};
 
 /** "раз в неделю" / "каждые 10 дней" — a natural cadence phrase. */
 export function wateringCadence(days: number | undefined): string {
