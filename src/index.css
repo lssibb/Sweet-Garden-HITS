@@ -53,6 +53,9 @@
   --living-soft: #e2f1e8;
   --warn: #c0622a;
   --warn-soft: #f6e6d8;
+
+  /* Colour of the ambient leaf background pattern (kept whisper-subtle). */
+  --leaf-ink: rgba(30, 91, 65, 0.05);
 }
 
 .dark {
@@ -91,6 +94,8 @@
   --living-soft: #16281e;
   --warn: #d9853f;
   --warn-soft: #2a1e12;
+
+  --leaf-ink: rgba(126, 194, 152, 0.06);
 }
 
 @theme inline {
@@ -149,6 +154,22 @@
     font-feature-settings: "ss01", "cv01";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Ambient repeating leaf pattern, tinted per theme via a masked colour layer. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--leaf-ink);
+    -webkit-mask-image: url("/leaf-pattern.svg");
+    mask-image: url("/leaf-pattern.svg");
+    -webkit-mask-repeat: repeat;
+    mask-repeat: repeat;
+    -webkit-mask-size: 260px 260px;
+    mask-size: 260px 260px;
   }
 
   h1, h2, h3, h4 {
