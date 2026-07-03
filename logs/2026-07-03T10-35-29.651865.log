@@ -10,3 +10,15 @@
 2026-07-03T10:39:56.525521	INFO	middleware/logger.go:13	Incoming request	{"request_id": "0917e259-7fa2-4aba-a30f-d81fa4d84856", "method": "GET", "path": "/api/v1/plants", "client_ip": "172.21.0.1", "user_agent": "PostmanRuntime/7.51.1"}
 2026-07-03T10:39:56.528630	DEBUG	middleware/logger.go:22	Completed request logic	{"request_id": "0917e259-7fa2-4aba-a30f-d81fa4d84856"}
 2026-07-03T10:39:56.529389	INFO	middleware/trace.go:29	Request finished	{"request_id": "0917e259-7fa2-4aba-a30f-d81fa4d84856", "status": 200, "duration": "4.12637ms"}
+2026-07-03T10:44:43.547252	INFO	middleware/logger.go:13	Incoming request	{"request_id": "9705b0f4-39d5-499b-bd0f-29460190d1ff", "method": "GET", "path": "/health", "client_ip": "172.21.0.1", "user_agent": "PostmanRuntime/7.51.1"}
+2026-07-03T10:44:43.550883	DEBUG	middleware/logger.go:22	Completed request logic	{"request_id": "9705b0f4-39d5-499b-bd0f-29460190d1ff"}
+2026-07-03T10:44:43.552073	INFO	middleware/trace.go:29	Request finished	{"request_id": "9705b0f4-39d5-499b-bd0f-29460190d1ff", "status": 200, "duration": "4.914558ms"}
+2026-07-03T10:56:14.314044	INFO	middleware/logger.go:13	Incoming request	{"request_id": "a94cc2cd-9969-4839-ae70-876086df36de", "method": "GET", "path": "/health", "client_ip": "172.21.0.1", "user_agent": "PostmanRuntime/7.51.1"}
+2026-07-03T10:56:14.315327	DEBUG	middleware/logger.go:22	Completed request logic	{"request_id": "a94cc2cd-9969-4839-ae70-876086df36de"}
+2026-07-03T10:56:14.316476	INFO	middleware/trace.go:29	Request finished	{"request_id": "a94cc2cd-9969-4839-ae70-876086df36de", "status": 200, "duration": "2.560468ms"}
+2026-07-03T10:57:19.019902	INFO	middleware/logger.go:13	Incoming request	{"request_id": "6ad3b8e7-062c-4917-a53d-0317d7cc17cd", "method": "GET", "path": "/api/v1/plants", "client_ip": "172.21.0.1", "user_agent": "PostmanRuntime/7.51.1"}
+2026-07-03T10:57:19.025685	DEBUG	middleware/logger.go:22	Completed request logic	{"request_id": "6ad3b8e7-062c-4917-a53d-0317d7cc17cd"}
+2026-07-03T10:57:19.027135	INFO	middleware/trace.go:29	Request finished	{"request_id": "6ad3b8e7-062c-4917-a53d-0317d7cc17cd", "status": 200, "duration": "7.253047ms"}
+2026-07-03T10:58:34.269794	INFO	middleware/logger.go:13	Incoming request	{"request_id": "95989a30-c13c-4c5d-90d3-63c6aeab1e8d", "method": "GET", "path": "/api/v1/plants", "client_ip": "172.21.0.1", "user_agent": "PostmanRuntime/7.51.1"}
+2026-07-03T10:58:34.272927	DEBUG	middleware/logger.go:22	Completed request logic	{"request_id": "95989a30-c13c-4c5d-90d3-63c6aeab1e8d"}
+2026-07-03T10:58:34.273598	INFO	middleware/trace.go:29	Request finished	{"request_id": "95989a30-c13c-4c5d-90d3-63c6aeab1e8d", "status": 200, "duration": "4.020011ms"}
