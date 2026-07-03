@@ -71,6 +71,21 @@ VITE_API_URL=http://localhost:8080
 фильтрация), добавьте `GET /api/recommendations` → `Plant[]` и переключите
 дашборд на него; текущая логика останется фолбэком.
 
+### Распознавание по фото (усложнение)
+
+| Метод | Путь             | Тело                           | Ответ                     |
+| ----- | ---------------- | ------------------------------ | ------------------------- |
+| POST  | `/api/recognize` | `multipart/form-data`, поле `image` | `RecognitionCandidate[]` |
+
+`RecognitionCandidate = { plantId, confidence: 0..1 }`, лучший первым; `plantId`
+должен ссылаться на растение справочника. Фронт абстрагирует распознавание за
+интерфейсом `PlantRecognizer` ([src/api/recognize/recognizer.ts](../src/api/recognize/recognizer.ts)):
+- `LocalRecognizer` — демо-эвристика по цвету изображения в браузере (сейчас);
+- `HttpRecognizer` — `multipart POST /api/recognize` (включается `VITE_DATA_SOURCE=http`).
+
+На бэке подключите модель или внешний сервис (например, Plant.id / PlantNet /
+своя CV-модель), верните top-N кандидатов — UI распознавания не изменится.
+
 Ошибки — JSON `{ "error": "текст" }` с соответствующим кодом (фронт читает поле
 `error`, см. [src/api/http/client.ts](../src/api/http/client.ts)).
 

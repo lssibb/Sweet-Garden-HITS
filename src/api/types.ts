@@ -164,3 +164,12 @@ export interface UpdateListingInput {
   wants?: string;
   city?: string;
 }
+
+// ── Photo recognition (распознавание по фото) ──────────────────────────────
+
+/** A candidate match returned by plant recognition. */
+export interface RecognitionCandidate {
+  plantId: string;
+  /** Confidence 0..1. */
+  confidence: number;
+}

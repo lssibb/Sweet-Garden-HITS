@@ -17,6 +17,7 @@ tags:
   - name: favorites
   - name: collection
   - name: exchange
+  - name: recognition
 
 paths:
   /plants:
@@ -291,6 +292,29 @@ paths:
             application/json:
               schema: { $ref: "#/components/schemas/ExchangeMessage" }
 
+  /recognize:
+    post:
+      tags: [recognition]
+      summary: Распознать растение по фото
+      operationId: recognizePlant
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [image]
+              properties:
+                image: { type: string, format: binary }
+      responses:
+        "200":
+          description: Кандидаты, лучший первым
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/RecognitionCandidate" }
+
 components:
   parameters:
     PlantId:
@@ -440,6 +464,17 @@ components:
         authorName: { type: string }
         text: { type: string }
         createdAt: { type: string, format: date-time }
+
+    RecognitionCandidate:
+      type: object
+      required: [plantId, confidence]
+      properties:
+        plantId: { type: string }
+        confidence:
+          type: number
+          format: float
+          minimum: 0
+          maximum: 1
 
     Error:
       type: object
