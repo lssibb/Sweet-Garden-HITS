@@ -3,6 +3,7 @@
 .env.local
 .env.*.local
 .out
+out
 
 # Dependencies
 node_modules
